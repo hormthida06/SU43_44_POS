@@ -1,0 +1,139 @@
+{% extends 'index.html'%}
+{% load static %}
+    {% block Link %}
+        <link rel="stylesheet" href="{%  static 'dist/css/form.css' %}">
+        <script src="{% static 'dist/js/attendance.js'  %}"></script>
+       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    {% endblock %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Attendance Management System</h2>
+
+        <form id="attendancesForm" action="{% url 'attendance_index' %}" method="post" class="d-flex gap-3 align-items-center mb-3">
+          {% csrf_token %}
+          <label for="class" class="form-label mb-0">Class:</label>
+          <select name="class" id="class" class="form-select" style="width: 200px;">
+            <option value="">Select a class</option>
+            {% for class in classes %}
+              <option value="{{ class.id }}" {% if selected_class_id == class.id|stringformat:"s" %}selected{% endif %}>{{ class.class_name }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="dob" class="form-label mb-0">Date:</label>
+          <input type="date" name="dob" id="dob" class="form-control" style="width: 200px;" value="{{ selected_date|default_if_none:'' }}">
+
+          <button type="submit" class="btn btn-primary">Filter</button>
+       </form>
+
+        <form action="{% url 'attendance_save' %}" method="post">
+          {% csrf_token %}
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for attendance in attendances %}
+                <tr>
+                  <td>{{ attendance.id }}</td>
+                  <td>{{ attendance.student.name }}</td>
+                  <td>{{ attendance.date }}</td>
+                  <td>
+                    {% for status_choice, label in attendance.STATUS_CHOICES %}
+                      <div class="form-check">
+                        <input class="form-check-input status-radio"
+                               type="radio"
+                               name="status_{{ attendance.id }}"
+                               value="{{ status_choice }}"
+                               data-id="{{ attendance.id }}"
+                               {% if attendance.status == status_choice %}checked{% endif %}>
+                        <label class="form-check-label">{{ label }}</label>
+                      </div>
+                    {% endfor %}
+
+                  </td>
+                </tr>
+              {% empty %}
+                <tr><td colspan="4" class="text-center">No data found.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+{#          {% if attendances %}#}
+{#            <div class="text-end mt-3">#}
+{#              <button type="submit" class="btn btn-success">Save Attendance</button>#}
+{#            </div>#}
+{#          {% endif %}#}
+        <div class="text-end mt-4">
+          <button type="button" id="saveAll" class="btn btn-success">Save All</button>
+        </div>
+
+        <script>
+        document.getElementById("saveAll").addEventListener("click", function() {
+          const radios = document.querySelectorAll(".status-radio:checked");
+          const data = Array.from(radios).map(radio => ({
+            attendance_id: radio.dataset.id,
+            status: radio.value
+          }));
+
+          fetch("{% url 'update_status' %}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({updates: data})
+          })
+          .then(res => res.json())
+          .then(response => {
+            if (response.success) {
+              alert("✅ Attendance saved successfully!");
+            } else {
+              alert("⚠️ Some error occurred!");
+            }
+          });
+        });
+        </script>
+
+        </form>
+
+
+      </div>
+
+         <div class="my-5 pt-5">
+            <p>Item	Count:	{{count_item}}</p>
+            <p>Page	{{attendances.number}} of {{attendances.paginator.num_pages}}</p>
+         </div>
+             <ul	class="pagination">
+                            {%	if	attendances.has_previous %}
+                                <li><a	href="?page=1"	style="color:white;background-color:green">&laquo;	first</a></li>
+                                <li><a	href="?page={{attendances.previous_page_number}}" style="color:white;background-color: blue">previous</a></li>
+                            {%else%}
+                                <li><a style="color:white;background-color: blue">previous</a></li>
+                            {%endif%}
+                            {%	for	i in attendances.paginator.page_range %}
+                                {%if	attendances.number == i %}
+                                    <li><a	href="#" style="color:white;background-color:blue;">{{i}}</a></li>
+                                {%else%}
+                                    <li><a	href="?page={{i}}"	style="color:black;">{{i}}</a></li>
+                                {%endif%}
+                            {%endfor%}
+                            {%	if	attendances.has_next %}
+                                <li><a	href="?page={{attendances.next_page_number}}"	style="color:white;background-color:green">next</a></li>
+                                <li><a	href="?page={{attendances.paginator.num_pages}}"	style="color:white;background-color:mediumblue">last	&raquo;</a></li>
+                            {%	endif	%}
+                        </ul>
+
+      </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

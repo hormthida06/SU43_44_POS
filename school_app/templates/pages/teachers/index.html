@@ -1,0 +1,102 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Teacher Management System</h2>
+       <div class="text-left my-5 ">
+            <a href="{% url 'show' %}">
+               <button class="btn btn-outline-primary">Create New Teacher</button>
+           </a>
+       </div>
+
+        <div class="text-left">
+            {% if messages %}
+               {% for message in messages %}
+                  <br><br>
+                  <span class="text-success" style="text-align: center; font-size: 16px; padding: 10px 80px">
+                  {{ message}}</span>
+               {% endfor %}
+            {% endif %}
+       </div>
+
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h4 class="mb-0"><ion-icon name="people-outline"></ion-icon> Teacher List</h4>
+          <div class="search-bar">
+             <form action="index" method="post" class="sidebar-form">
+             {% csrf_token %}
+                <input type="text" class="form-control" id="searchInput" placeholder="Search teachers...">
+             </form>
+          </div>
+        </div>
+        <div class="list-section">
+          <div class="table-responsive">
+            <table class="table table-hover" id="studentTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Grade</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Subject</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for teacher in teachers %}
+                    <tr>
+                      <td>{{ teacher.id }}</td>
+                      <td>{{ teacher.name }}</td>
+                      <td>{{ teacher.email }}</td>
+                      <td>{{ teacher.gender }}</td>
+                      <td>{{ teacher.phone }}</td>
+                      <td>{{ teacher.address }}</td>
+                      <td>{{ teacher.subject }}</td>
+                      <td>
+                          <a href="edit_by_id/{{ teacher.id }}"><button class="btn btn-sm btn-outline-primary me-1" >Edit</button></a>
+                          <a href="delete_by_id/{{ teacher.id }}"><button class="btn btn-sm btn-outline-danger" >Delete</button></a>
+                      </td>
+                    </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+
+         <div class="my-5 pt-5">
+            <p>Item	Count:	{{count_item}}</p>
+            <p>Page	{{teachers.number}} of {{teachers.paginator.num_pages}}</p>
+         </div>
+             <ul	class="pagination">
+                            {%if teachers.has_previous %}
+                                <li><a	href="?page=1"	style="color:white;background-color:green">&laquo;	first</a></li>
+                                <li><a	href="?page={{teachers.previous_page_number}}" style="color:white;background-color: blue">previous</a></li>
+                                {%else%}
+                                    <li><a style="color:white;background-color: blue">previous</a></li>
+                            {%endif%}
+                            {%	for	i in teachers.paginator.page_range %}
+                                {%if	teachers.number == i %}
+                                    <li><a	href="#" style="color:white;background-color:blue;">{{i}}</a></li>
+                                {%else%}
+                                    <li><a	href="?page={{i}}"	style="color:black;">{{i}}</a></li>
+                                {%endif%}
+                            {%endfor%}
+                            {%	if	teachers.has_next %}
+                                <li><a	href="?page={{teachers.next_page_number}}"	style="color:white;background-color:green">next</a></li>
+                                <li><a	href="?page={{teachers.paginator.num_pages}}"	style="color:white;background-color:mediumblue">last	&raquo;</a></li>
+                            {%	endif	%}
+                        </ul>
+
+      </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

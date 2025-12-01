@@ -1,0 +1,173 @@
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+    .internship-header {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .internship-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8f9fa" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat center bottom;
+      background-size: cover;
+    }
+    .internship-header h1 {
+      font-weight: 700;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .internship-header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-weight: 700;
+      color: #0d6efd;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 70px;
+      height: 5px;
+      background: #0d6efd;
+      border-radius: 3px;
+    }
+    .program-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      height: 100%;
+    }
+    .program-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    .program-card .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .program-card .card-body {
+      padding: 1.5rem;
+    }
+    .program-card h5 {
+      font-weight: 600;
+      color: #0d6efd;
+    }
+    .program-card ul {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+    }
+    .program-card .btn {
+      background: #0d6efd;
+      border: none;
+      font-weight: 600;
+    }
+    .program-card .btn:hover {
+      background: #0b5ed7;
+    }
+    .stats-section {
+      background: #e3f2fd;
+      padding: 3rem 0;
+      border-radius: 20px;
+      margin: 3rem 0;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #0d6efd;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 1.5rem;
+    }
+    .benefit-icon {
+      font-size: 1.8rem;
+      color: #28a745;
+      flex-shrink: 0;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 6rem;
+      color: #0d6efd;
+      opacity: 0.1;
+      font-family: Georgia, serif;
+    }
+    .testimonial-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .application-form {
+      background: white;
+      border-radius: 15px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .btn-apply {
+      background: #28a745;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+    }
+    .btn-apply:hover {
+      background: #218838;
+    }
+    .partner-logo {
+      height: 60px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    .partner-logo:hover {
+      filter: grayscale(0%);
+    }
+    @media (max-width: 768px) {
+      .internship-header h1 {
+        font-size: 2.5rem;
+      }
+      .stat-number {
+        font-size: 2rem;
+      }
+      .application-form {
+        padding: 1.5rem;
+      }
+    }

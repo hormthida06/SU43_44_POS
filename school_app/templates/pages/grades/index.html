@@ -1,0 +1,128 @@
+{% extends 'index.html'%}
+{% load static %}
+    {% block Link %}
+        <link rel="stylesheet" href="{%  static 'dist/css/form.css' %}">
+        <script src="{% static 'dist/js/attendance.js'  %}"></script>
+       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    {% endblock %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Grade Management System</h2>
+
+       <form id="gradeForm" action="{% url 'grade_index' %}" method="get" class="d-flex gap-3 align-items-center mb-3">
+          {% csrf_token %}
+          <label for="class" class="form-label mb-0">Class:</label>
+          <select name="class" id="class" class="form-select" style="width: 200px;">
+            <option value="">Select a class</option>
+            {% for class in classes %}
+              <option value="{{ class.id }}" {% if selected_class_id == class.id|stringformat:"s" %}selected{% endif %}>{{ class.class_name }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="subject" class="form-label mb-0">Subject:</label>
+          <select name="subject" id="subject" class="form-select" style="width: 200px;">
+            <option value="">Select a Subject</option>
+            {% for subject in subjects %}
+              <option value="{{ subject.id }}" {% if selected_subject_id == subject.id|stringformat:"s" %}selected{% endif %}>{{ subject.subject_name }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="btn btn-primary">Filter</button>
+       </form>
+
+        <form id="gradeForm" action="{% url 'grade_index' %}" method="get">
+
+          {% csrf_token %}
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Score</th>
+                <th>Comment</th>
+                <th>Create_AT</th>
+                <th>Update_AT</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for grade in grades %}
+                <tr>
+                  <td>{{ grade.id }}</td>
+                  <td>{{ grade.student.name }}</td>
+                  <td>{{ grade.subject.subject_name }}</td>
+                  <td>
+                      {% if grade.teacher %}
+                        {{ grade.teacher.name }}
+                      {% else %}
+                        -
+                      {% endif %}
+                  </td>
+
+                  {# Input for score #}
+                  <td>
+                    <input type="number" name="score_{{ grade.id }}"
+                           value="{{ grade.score }}" min="0" max="100" class="form-control">
+                  </td>
+
+                  {# Input for comment #}
+                  <td>
+                    <input type="text" name="comment_{{ grade.id }}"
+                           value="{{ grade.comment }}" class="form-control">
+                  </td>
+
+                  <td>{{ grade.created_at|date:"d/m/Y" }}</td>
+                  <td>{{ grade.updated_at|date:"d/m/Y"|default:"None" }}</td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="8" class="text-center">No data found.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="text-end mt-4">
+            <button type="submit" class="btn btn-success">Save All</button>
+          </div>
+        </form>
+
+
+      </div>
+
+      <div class="my-5 pt-5">
+        <p>Item Count: {{ grades.paginator.count }}</p>
+        <p>Page {{ grades.number }} of {{ grades.paginator.num_pages }}</p>
+    </div>
+
+    <ul class="pagination">
+        {% if grades.has_previous %}
+            <li><a href="?page=1">« First</a></li>
+            <li><a href="?page={{ grades.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        {% for i in grades.paginator.page_range %}
+            {% if grades.number == i %}
+                <li><a href="#" class="active">{{ i }}</a></li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if grades.has_next %}
+            <li><a href="?page={{ grades.next_page_number }}">Next</a></li>
+            <li><a href="?page={{ grades.paginator.num_pages }}">Last »</a></li>
+        {% endif %}
+    </ul>
+
+
+      </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

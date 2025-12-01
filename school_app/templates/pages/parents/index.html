@@ -1,0 +1,93 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Class Management System</h2>
+       <div class="text-left my-5 ">
+            <a href="/classes/show">
+               <button class="btn btn-outline-primary">Create New Class</button>
+           </a>
+       </div>
+
+        <div class="text-left my-5 ">
+            {% if messages %}
+               {% for message in messages %}
+                  <br><br>
+                  <span class="text-success" style="text-align: center; font-size: 16px; padding: 10px 80px">
+                  {{ message}}</span>
+               {% endfor %}
+            {% endif %}
+       </div>
+
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h4 class="mb-0"><ion-icon name="people-outline"></ion-icon> Class List</h4>
+          <div class="search-bar">
+             <form method="POST" action="">
+              {% csrf_token %}
+              <input type="text" name="search_item" placeholder="Search class..." class="form-control d-inline-block" style="width: auto;">
+              <button type="submit" class="btn btn-apply">Search</button>
+            </form>
+          </div>
+        </div>
+        <div class="list-section">
+          <div class="table-responsive">
+            <table class="table table-hover" id="classTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Class Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for class in classes %}
+                    <tr>
+                      <td>{{ class.id }}</td>
+                      <td>{{ class.class_name }}</td>
+                      <td>
+                          <a href="edit/{{ class.id }}"><button class="btn btn-sm btn-outline-primary me-1" >Edit</button></a>
+                          <a href="delete/{{ class.id }}"><button class="btn btn-sm btn-outline-danger" >Delete</button></a>
+                      </td>
+                    </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+
+         <div class="my-5 pt-5">
+            <p>Item	Count:	{{count_item}}</p>
+            <p>Page	{{students.number}} of {{students.paginator.num_pages}}</p>
+         </div>
+             <ul	class="pagination">
+                            {%	if	students.has_previous %}
+                                <li><a	href="?page=1"	style="color:white;background-color:green">&laquo;	first</a></li>
+                                <li><a	href="?page={{students.previous_page_number}}" style="color:white;background-color: blue">previous</a></li>
+                            {%else%}
+                                <li><a style="color:white;background-color: blue">previous</a></li>
+                            {%endif%}
+                            {%	for	i in students.paginator.page_range %}
+                                {%if	students.number == i %}
+                                    <li><a	href="#" style="color:white;background-color:blue;">{{i}}</a></li>
+                                {%else%}
+                                    <li><a	href="?page={{i}}"	style="color:black;">{{i}}</a></li>
+                                {%endif%}
+                            {%endfor%}
+                            {%	if	students.has_next %}
+                                <li><a	href="?page={{students.next_page_number}}"	style="color:white;background-color:green">next</a></li>
+                                <li><a	href="?page={{students.paginator.num_pages}}"	style="color:white;background-color:mediumblue">last	&raquo;</a></li>
+                            {%	endif	%}
+                        </ul>
+
+      </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Fee Management System</h2>
+       <div class="text-left my-5 ">
+            <a href="/fees/create">
+               <button class="btn btn-outline-primary">Create New Fee</button>
+           </a>
+       </div>
+
+        <div class="text-left my-5 ">
+            {% if messages %}
+               {% for message in messages %}
+                  <br><br>
+                  <span class="text-success" style="text-align: center; font-size: 16px; padding: 10px 80px">
+                  {{ message}}</span>
+               {% endfor %}
+            {% endif %}
+       </div>
+
+     <div class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"><ion-icon name="people-outline"></ion-icon> Fee List</h4>
+        <div class="search-bar">
+            <form action="" method="get" class="sidebar-form">
+                <input type="text" name="search_item" class="form-control"
+                       placeholder="Search by Student..." value="{{ request.GET.search_item }}">
+            </form>
+        </div>
+    </div>
+    <div class="list-section">
+        <div class="table-responsive">
+            <table class="table table-hover" id="classTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fee in fees %}
+                        <tr>
+                            <td>{{ forloop.counter0|add:fees.start_index }}</td>
+                            <td>{{ fee.student }}</td>
+                            <td>{{ fee.amount }}</td>
+                            <td>{{ fee.status }}</td>
+                            <td>{{ fee.due_date|date:"d/m/Y" }}</td>
+                            <td>{{ fee.created_at|date:"d/m/Y" }}</td>
+                            <td>{{ fee.updated_at|date:"d/m/Y" }}</td>
+                            <td>
+                                <a href="edit/{{ fee.id }}">
+                                    <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                </a>
+                                <a href="delete/{{ fee.id }}">
+                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# Pagination block (optional, if you want to paginate fees) #}
+    <ul class="pagination">
+        {% if fees.has_previous %}
+            <li><a href="?page=1&search_item={{ request.GET.search_item }}" style="color:white;background-color:green">&laquo; first</a></li>
+            <li><a href="?page={{ fees.previous_page_number }}&search_item={{ request.GET.search_item }}" style="color:white;background-color:blue">previous</a></li>
+        {% else %}
+            <li><a style="color:white;background-color:blue">previous</a></li>
+        {% endif %}
+
+        {% for i in fees.paginator.page_range %}
+            {% if fees.number == i %}
+                <li><a href="#" style="color:white;background-color:blue;">{{ i }}</a></li>
+            {% else %}
+                <li><a href="?page={{ i }}&search_item={{ request.GET.search_item }}" style="color:black;">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if fees.has_next %}
+            <li><a href="?page={{ fees.next_page_number }}&search_item={{ request.GET.search_item }}" style="color:white;background-color:green">next</a></li>
+            <li><a href="?page={{ fees.paginator.num_pages }}&search_item={{ request.GET.search_item }}" style="color:white;background-color:mediumblue">last &raquo;</a></li>
+        {% endif %}
+    </ul>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

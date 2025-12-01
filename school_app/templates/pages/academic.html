@@ -1,0 +1,308 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block Link %}
+  <link rel="stylesheet" href="{%  static 'dist/css/academic.css' %}">
+  <script src="{% static 'dist/js/script.js'  %}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<!-- Hero Header -->
+<header class="academic-header">
+  <div class="container position-relative">
+    <h1><ion-icon name="book-outline"></ion-icon> Academic Programs</h1>
+    <p class="lead">World-class education from Kindergarten to Grade 12, designed to inspire curiosity, foster excellence, and prepare future leaders.</p>
+  </div>
+</header>
+
+<div class="container my-5">
+
+  <!-- Program Overview -->
+  <section class="text-center mb-5">
+    <h2 class="section-title mx-auto">Our Academic Journey</h2>
+    <p class="lead col-lg-9 mx-auto">
+      MySchool offers a comprehensive, internationally-aligned curriculum that nurtures intellectual growth, creativity, and character development at every stage.
+    </p>
+  </section>
+
+  <!-- Academic Levels -->
+  <section class="mb-5">
+    <h2 class="section-title text-center mb-5">Academic Levels</h2>
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="card program-card h-100">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Kindergarten">
+          <div class="card-body d-flex flex-column">
+            <h5>Kindergarten (Ages 3-6)</h5>
+            <p class="flex-grow-1">Play-based learning with focus on social skills, creativity, and early literacy.</p>
+            <ul class="list-unstyled mt-2">
+              <li>Art & Music</li>
+              <li>Story Time</li>
+              <li>Outdoor Play</li>
+            </ul>
+            <a href="#" class="btn btn-primary mt-3">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card program-card h-100">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Primary">
+          <div class="card-body d-flex flex-column">
+            <h5>Primary School (Grades 1-6)</h5>
+            <p class="flex-grow-1">Strong foundation in core subjects with hands-on science and project-based learning.</p>
+            <ul class="list-unstyled mt-2">
+              <li>Math & Science Labs</li>
+              <li>English & Khmer</li>
+              <li>Computer Literacy</li>
+            </ul>
+            <a href="#" class="btn btn-primary mt-3">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card program-card h-100">
+          <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Secondary">
+          <div class="card-body d-flex flex-column">
+            <h5>Secondary School (Grades 7-12)</h5>
+            <p class="flex-grow-1">Rigorous curriculum with advanced courses, leadership training, and university preparation.</p>
+            <ul class="list-unstyled mt-2">
+              <li>AP & IB Options</li>
+              <li>STEM & Robotics</li>
+              <li>College Counseling</li>
+            </ul>
+            <a href="#" class="btn btn-primary mt-3">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Stats -->
+  <section class="stats-section">
+    <div class="row text-center">
+      <div class="col-md-3 col-6 mb-4">
+        <div class="stat-item">
+          <div class="stat-number">98%</div>
+          <p class="mb-0">Graduation Rate</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-4">
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <p class="mb-0">University Placement</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-4">
+        <div class="stat-item">
+          <div class="stat-number">40+</div>
+          <p class="mb-0">Clubs & Activities</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-4">
+        <div class="stat-item">
+          <div class="stat-number">1:12</div>
+          <p class="mb-0">Teacher-Student Ratio</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum Highlights -->
+  <section class="mb-5">
+    <h2 class="section-title text-center mb-5">Curriculum Highlights</h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="curriculum-item">
+          <ion-icon name="globe-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>International Standards</h5>
+            <p>Aligned with Cambridge, IB, and AP frameworks for global recognition.</p>
+          </div>
+        </div>
+        <div class="curriculum-item">
+          <ion-icon name="bulb-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>Inquiry-Based Learning</h5>
+            <p>Encourages critical thinking, research, and problem-solving skills.</p>
+          </div>
+        </div>
+        <div class="curriculum-item">
+          <ion-icon name="code-slash-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>STEM Integration</h5>
+            <p>Coding, robotics, and engineering from Grade 1 onwards.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="curriculum-item">
+          <ion-icon name="language-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>Trilingual Education</h5>
+            <p>English, Khmer, and Mandarin with native-speaking teachers.</p>
+          </div>
+        </div>
+        <div class="curriculum-item">
+          <ion-icon name="musical-notes-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>Arts & Athletics</h5>
+            <p>Music, drama, visual arts, and competitive sports programs.</p>
+          </div>
+        </div>
+        <div class="curriculum-item">
+          <ion-icon name="heart-outline" class="curriculum-icon"></ion-icon>
+          <div>
+            <h5>Character Development</h5>
+            <p>Values education, leadership, and community service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities -->
+  <section class="mb-5">
+    <h2 class="section-title text-center mb-5">State-of-the-Art Facilities</h2>
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="facility-card">
+          <div class="facility-icon"><ion-icon name="flask-outline"></ion-icon></div>
+          <h6>Science Labs</h6>
+          <p>Advanced biology, chemistry, and physics labs.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="facility-card">
+          <div class="facility-icon"><ion-icon name="laptop-outline"></ion-icon></div>
+          <h6>Tech Center</h6>
+          <p>Mac labs, 3D printing, and VR learning stations.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="facility-card">
+          <div class="facility-icon"><ion-icon name="library-outline"></ion-icon></div>
+          <h6>Library</h6>
+          <p>50,000+ books and digital resources.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="facility-card">
+          <div class="facility-icon"><ion-icon name="football-outline"></ion-icon></div>
+          <h6>Sports Complex</h6>
+          <p>Olympic pool, gym, and football field.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section class="bg-light py-5 rounded-4 mb-5">
+    <h2 class="section-title text-center mb-5">Academic Achievements</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="achievement-item">
+          <div class="achievement-icon"><ion-icon name="trophy-outline"></ion-icon></div>
+          <h5>National Science Olympiad</h5>
+          <p>1st Place - 2024</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="achievement-item">
+          <div class="achievement-icon"><ion-icon name="medal-outline"></ion-icon></div>
+          <h5>Cambridge Top in World</h5>
+          <p>Mathematics & Physics - 2023</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="achievement-item">
+          <div class="achievement-icon"><ion-icon name="star-outline"></ion-icon></div>
+          <h5>100% Pass Rate</h5>
+          <p>Grade 12 National Exam - 5 Years</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Faculty -->
+  <section class="mb-5">
+    <h2 class="section-title text-center mb-5">Meet Our Expert Faculty</h2>
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="teacher-card">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Dr. Lee">
+          <h6>Dr. Robert Lee</h6>
+          <small>Head of Science (PhD, MIT)</small>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="teacher-card">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ms. Chen">
+          <h6>Ms. Emily Chen</h6>
+          <small>IB Coordinator (M.Ed, Harvard)</small>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="teacher-card">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mr. Kim">
+          <h6>Mr. David Kim</h6>
+          <small>STEM Director (MSc, Stanford)</small>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="teacher-card">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ms. Garcia">
+          <h6>Ms. Sofia Garcia</h6>
+          <small>Arts & Humanities Lead</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion -->
+  <section class="mb-5">
+    <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
+    <div class="accordion" id="academicFAQ">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            What curriculum do you follow?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#academicFAQ">
+          <div class="accordion-body">
+            We follow a blended international curriculum aligned with Cambridge IGCSE, IB Diploma, and AP standards, enriched with Khmer language and culture.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            Do you offer scholarships?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#academicFAQ">
+          <div class="accordion-body">
+            Yes! We offer merit-based and need-based scholarships for outstanding students. Contact admissions for details.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            What extracurricular activities are available?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#academicFAQ">
+          <div class="accordion-body">
+            Over 40 clubs including robotics, debate, music, sports, and community service. Students can also start their own clubs.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

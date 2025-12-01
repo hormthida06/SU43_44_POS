@@ -1,0 +1,79 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+  <div class="container my-5 pt-5">
+    <h2 class="text-primary mb-4"><ion-icon name="school-outline"></ion-icon> Sudents Result List</h2>
+
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h4 class="mb-0"><ion-icon name="people-outline"></ion-icon> Result List</h4>
+          <div class="search-bar">
+             <form action="index" method="post" class="sidebar-form">
+             {% csrf_token %}
+                <input type="text" name="search_item" class="form-control" id="searchInput" placeholder="Search Student...">
+             </form>
+          </div>
+        </div>
+        <div class="list-section">
+          <div class="table-responsive">
+            <table class="table table-hover" id="classTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Student</th>
+                  <th>Total</th>
+                  <th>Average</th>
+                  <th>Grade</th>
+                  <th>Create_at</th>
+                  <th>Updated_at</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in grades %}
+                    <tr>
+                        <td>{{ forloop.counter0|add:grades.start_index }}</td>
+                        <td>{{ row.student__name }}</td>
+                        <td>{{ row.total }}</td>
+                        <td>{{ row.average|floatformat:2 }}</td>
+                        <td>{{ row.grade_letter }}</td>
+                        <td>{{ row.created_at|date:"d/m/Y" }}</td>
+                        <td>{{ row.updated_at|date:"d/m/Y" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+      </div>
+
+         <ul class="pagination">
+            {% if grades.has_previous %}
+                <li><a href="?page=1" style="color:white;background-color:green">&laquo; first</a></li>
+                <li><a href="?page={{ grades.previous_page_number }}" style="color:white;background-color:blue">previous</a></li>
+            {% else %}
+                <li><a style="color:white;background-color:blue">previous</a></li>
+            {% endif %}
+
+            {% for i in grades.paginator.page_range %}
+                {% if grades.number == i %}
+                    <li><a href="#" style="color:white;background-color:blue;">{{ i }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ i }}" style="color:black;">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if grades.has_next %}
+                <li><a href="?page={{ grades.next_page_number }}" style="color:white;background-color:green">next</a></li>
+                <li><a href="?page={{ grades.paginator.num_pages }}" style="color:white;background-color:mediumblue">last &raquo;</a></li>
+            {% endif %}
+        </ul>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+{% endblock %}

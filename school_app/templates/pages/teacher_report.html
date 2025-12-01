@@ -1,0 +1,268 @@
+{% extends 'index.html'%}
+{% load static %}
+
+{% block content %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Ionicons for icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <style>
+    body {
+        padding: 100px 0;
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+    }
+    .report-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .report-header {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .report-header h1 {
+      margin: 0;
+      font-weight: 700;
+    }
+    .form-section {
+      padding: 2rem;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .btn-submit {
+      background: #0d6efd;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+    }
+    .btn-submit:hover {
+      background: #0b5ed7;
+    }
+    .preview-area {
+      background: #e9ecef;
+      border: 2px dashed #adb5bd;
+      border-radius: 8px;
+      min-height: 200px;
+      padding: 1rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    .preview-area.show {
+      display: block;
+    }
+    .table th {
+      background-color: #f1f3f5;
+    }
+    @media (max-width: 768px) {
+      .report-container {
+        margin: 1rem;
+      }
+      .report-header {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+
+
+<div class="container-fluid">
+  <div class="report-container">
+    <!-- Header -->
+    <div class="report-header">
+      <h1><ion-icon name="document-text-outline"></ion-icon> Frontend Report Form</h1>
+      <p class="mb-0">Generate professional reports with ease</p>
+    </div>
+
+    <!-- Form Body -->
+    <div class="form-section">
+      <form id="reportForm">
+        <!-- Report Info -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="reportTitle" class="form-label">Report Title</label>
+            <input type="text" class="form-control" id="reportTitle" placeholder="e.g., Monthly Sales Report" required>
+          </div>
+          <div class="col-md-6">
+            <label for="reportDate" class="form-label">Report Date</label>
+            <input type="date" class="form-control" id="reportDate" required>
+          </div>
+        </div>
+
+        <!-- Author & Department -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="authorName" class="form-label">Author Name</label>
+            <input type="text" class="form-control" id="authorName" placeholder="John Doe" required>
+          </div>
+          <div class="col-md-6">
+            <label for="department" class="form-label">Department</label>
+            <select class="form-select" id="department" required>
+              <option value="">Select Department</option>
+              <option value="IT">IT</option>
+              <option value="HR">HR</option>
+              <option value="Finance">Finance</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Operations">Operations</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="mb-4">
+          <label for="summary" class="form-label">Executive Summary</label>
+          <textarea class="form-control" id="summary" rows="4" placeholder="Provide a brief overview of the report..." required></textarea>
+        </div>
+
+        <!-- Data Table -->
+        <h5 class="mb-3">Key Metrics (Add Rows Dynamically)</h5>
+        <div class="table-responsive mb-4">
+          <table class="table table-bordered" id="metricsTable">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Value</th>
+                <th>Previous</th>
+                <th>Change (%)</th>
+                <th><button type="button" class="btn btn-sm btn-primary" id="addRow">+</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" class="form-control" placeholder="e.g., Revenue"></td>
+                <td><input type="number" class="form-control" placeholder="100000"></td>
+                <td><input type="number" class="form-control" placeholder="90000"></td>
+                <td><input type="text" class="form-control" readonly></td>
+                <td><button type="button" class="btn btn-sm btn-danger remove-row">−</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Attachments -->
+        <div class="mb-4">
+          <label for="attachments" class="form-label">Attachments (Charts/Images)</label>
+          <input type="file" class="form-control" id="attachments" multiple accept="image/*,.pdf">
+          <small class="text-muted">Upload supporting files (max 5MB each)</small>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-secondary me-2" id="previewBtn">Preview</button>
+          <button type="submit" class="btn btn-submit text-white">Generate Report</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Preview Area -->
+    <div class="preview-area" id="previewArea">
+      <h4>Report Preview</h4>
+      <hr>
+      <div id="previewContent"></div>
+      <div class="text-end mt-3">
+        <button class="btn btn-success" id="downloadPdf">Download PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- html2pdf.js for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+  // Set today's date
+  document.getElementById('reportDate').valueAsDate = new Date();
+
+  // Add row to table
+  document.getElementById('addRow').addEventListener('click', () => {
+    const table = document.getElementById('metricsTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+      <td><input type="text" class="form-control" placeholder="Metric"></td>
+      <td><input type="number" class="form-control" placeholder="0"></td>
+      <td><input type="number" class="form-control" placeholder="0"></td>
+      <td><input type="text" class="form-control" readonly></td>
+      <td><button type="button" class="btn btn-sm btn-danger remove-row">−</button></td>
+    `;
+    attachRowListeners(newRow);
+  });
+
+  // Remove row
+  function attachRowListeners(row) {
+    row.querySelector('.remove-row').addEventListener('click', () => row.remove());
+    const inputs = row.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => input.addEventListener('input', calculateChange));
+  }
+
+  // Calculate % change
+  function calculateChange(e) {
+    const row = e.target.closest('tr');
+    const current = parseFloat(row.cells[1].querySelector('input').value) || 0;
+    const previous = parseFloat(row.cells[2].querySelector('input').value) || 0;
+    const changeCell = row.cells[3].querySelector('input');
+    if (previous !== 0) {
+      const change = ((current - previous) / previous) * 100;
+      changeCell.value = change.toFixed(2) + '%';
+      changeCell.style.color = change >= 0 ? 'green' : 'red';
+    } else {
+      changeCell.value = 'N/A';
+    }
+  }
+
+  // Attach listeners to existing rows
+  document.querySelectorAll('#metricsTable tbody tr').forEach(attachRowListeners);
+
+  // Preview Report
+  document.getElementById('previewBtn').addEventListener('click', () => {
+    const title = document.getElementById('reportTitle').value;
+    const date = document.getElementById('reportDate').value;
+    const author = document.getElementById('authorName').value;
+    const dept = document.getElementById('department').value;
+    const summary = document.getElementById('summary').value;
+
+    let tableHtml = '<table class="table table-striped"><thead><tr><th>Metric</th><th>Value</th><th>Previous</th><th>Change</th></tr></thead><tbody>';
+    document.querySelectorAll('#metricsTable tbody tr').forEach(row => {
+      const cells = row.querySelectorAll('input');
+      tableHtml += `<tr><td>${cells[0].value}</td><td>${cells[1].value}</td><td>${cells[2].value}</td><td>${cells[3].value}</td></tr>`;
+    });
+    tableHtml += '</tbody></table>';
+
+    const previewContent = `
+      <h3>${title}</h3>
+      <p><strong>Date:</strong> ${new Date(date).toLocaleDateString()} | <strong>Author:</strong> ${author} (${dept})</p>
+      <h5>Summary</h5>
+      <p>${summary.replace(/\n/g, '<br>')}</p>
+      <h5>Key Metrics</h5>
+      ${tableHtml}
+    `;
+
+    document.getElementById('previewContent').innerHTML = previewContent;
+    document.getElementById('previewArea').classList.add('show');
+  });
+
+  // Generate Report (Submit)
+  document.getElementById('reportForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('previewBtn').click(); // Auto-preview
+    alert('Report generated! Check preview and download PDF.');
+  });
+
+  // Download PDF
+  document.getElementById('downloadPdf').addEventListener('click', () => {
+    const element = document.getElementById('previewArea');
+    html2pdf()
+      .set({ margin: 1, filename: `${document.getElementById('reportTitle').value || 'Report'}.pdf`, jsPDF: { unit: 'in', format: 'letter' } })
+      .from(element)
+      .save();
+  });
+</script>
+
+{% endblock %}
