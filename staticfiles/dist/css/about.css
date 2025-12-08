@@ -1,0 +1,170 @@
+body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+    .about-header {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,30 L100,100 L0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat bottom;
+      background-size: 100% 50px;
+    }
+    .about-header h1 {
+      font-weight: 700;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .about-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-weight: 700;
+      color: #0d6efd;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: #0d6efd;
+      border-radius: 2px;
+    }
+    .mission-card, .vision-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      padding: 2rem;
+      transition: transform 0.3s ease;
+    }
+    .mission-card:hover, .vision-card:hover {
+      transform: translateY(-10px);
+    }
+    .mission-card {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    }
+    .vision-card {
+      background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    }
+    .value-item {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .value-icon {
+      font-size: 3rem;
+      color: #0d6efd;
+      margin-bottom: 1rem;
+    }
+    .stats-counter {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0d6efd;
+    }
+    .team-member {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .team-member h5 {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .team-member p {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    .timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #0d6efd;
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      margin: 2rem 0;
+      width: 50%;
+      padding: 1rem;
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+      padding-right: 3rem;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      padding-left: 3rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #0d6efd;
+      border-radius: 50%;
+      top: 1.5rem;
+    }
+    .timeline-item:nth-child(odd)::before {
+      right: -10px;
+    }
+    .timeline-item:nth-child(even)::before {
+      left: -10px;
+    }
+    .timeline-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 992px) {
+      .timeline::before {
+        left: 20px;
+      }
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 3rem !important;
+        padding-right: 1rem !important;
+        text-align: left !important;
+      }
+      .timeline-item::before {
+        left: 10px !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .about-header h1 {
+        font-size: 2.5rem;
+      }
+      .stats-counter {
+        font-size: 2rem;
+      }
+    }
