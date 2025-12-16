@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': 'school_system_db',
         'USER': 'postgres',
         'PASSWORD': '123',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

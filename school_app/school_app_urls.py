@@ -7,7 +7,6 @@ from school_app.my_views import student_views, subject_views, teacher_views, cla
     attendances_views, schedule_views, fee_views, parent_views, result_views, auth_views
 
 urlpatterns = [
-
 path("ST_dashboard/", views.st_dashboard),
 path("T_dashboard/", views.leactur_dashboard),
 path("dashboard/", views.dashboard),
@@ -92,7 +91,7 @@ path('students/update/<int:student_id>', student_views.update, name='update'),
 
     path("users/update/<id>", user_views.update),
 
-#Grade
+#-------------------------------------Grade
     path("grades/update_status/", grade_views.update, name="update_status"),
     path("grades/save", grade_views.grade_save, name="grade_save"),
     path('grades/index', grade_views.index, name='grade_index'),
